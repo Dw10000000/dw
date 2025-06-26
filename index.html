@@ -1,1 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLOXORZ - Premium HTML5 Block Puzzle Game</title>
+    <meta name="description" content="Play BLOXORZ - the ultimate HTML5 block puzzle game with stunning graphics and addictive gameplay. Tilt the board to navigate the block to the hole. Play now directly in your browser on any device.">
+    <link rel="canonical" href="https://bloxorz.space/">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        apple: {
+                            white: '#FFFFFF',
+                            lightgray: '#F5F5F7',
+                            gray: '#86868B',
+                            darkgray: '#333333',
+                            blue: '#0071E3',
+                            accent: '#34C759',
+                            highlight: '#FF9500'
+                        },
+                        bloxor: {
+                            primary: '#2D5BFF',
+                            secondary: '#FF4B5C',
+                            dark: '#1A237E',
+                            light: '#E8EAF6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif']
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .iframe-container {
+                position: relative;
+                overflow: hidden;
+                padding-top: 56.25%;
+            }
+            .iframe-container iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: 0;
+            }
+            .hover-scale {
+                transition: transform 0.3s ease;
+            }
+            .hover-scale:hover {
+                transform: scale(1.02);
+            }
+            .card-shadow {
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+            }
+            .blox-shadow {
+                box-shadow: 0 4px 12px rgba(45, 91, 255, 0.2);
+            }
+        }
+    </style>
+</head>
+<body class="bg-apple-lightgray text-apple-darkgray font-sans">
+    <!-- 导航栏 -->
+    <nav class="bg-apple-white shadow-sm sticky top-0 z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-bloxor-primary">BLOXORZ</h1>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#play" class="text-apple-darkgray hover:text-bloxor-primary transition-colors font-medium">Play</a>
+                    <a href="#features" class="text-apple-darkgray hover:text-bloxor-primary transition-colors font-medium">Features</a>
+                    <a href="#how-to-play" class="text-apple-darkgray hover:text-bloxor-primary transition-colors font-medium">How to Play</a>
+                    <a href="#leaderboard" class="text-apple-darkgray hover:text-bloxor-primary transition-colors font-medium">Leaderboard</a>
+                    <a href="#updates" class="text-apple-darkgray hover:text-bloxor-primary transition-colors font-medium">Updates</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-apple-darkgray focus:outline-none">
+                        <i class="fa fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- 移动端菜单 -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-2">
+                <div class="flex flex-col space-y-3">
+                    <a href="#play" class="text-apple-darkgray hover:text-bloxor-primary transition-colors font-medium">Play</a>
+                    <a href="#features" class="text-apple-darkgray hover:text-bloxor-primary transition-colors font-medium">Features</a>
+                    <a href="#how-to-play" class="text-apple-darkgray hover:text-bloxor-primary transition-colors font-medium">How to Play</a>
+                    <a href="#leaderboard" class="text-apple-darkgray hover:text-bloxor-primary transition-colors font-medium">Leaderboard</a>
+                    <a href="#updates" class="text-apple-darkgray hover:text-bloxor-primary transition-colors font-medium">Updates</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- 游戏播放区 -->
+        <section id="play" class="mb-12 bg-apple-white rounded-2xl shadow-md overflow-hidden hover-scale blox-shadow">
+            <div class="p-6 md:p-8">
+                <h2 class="text-2xl md:text-3xl font-semibold mb-4 text-bloxor-primary">Play Now</h2>
+                <div class="iframe-container border border-gray-200 rounded-lg overflow-hidden">
+                    <iframe
+                        src="https://html5.gamemonetize.co/nhyyth7h1gztti5jba25n5o6v3002j5q/"
+                        sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                        allowfullscreen="true"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        class="w-full h-full">
+                    </iframe>
+                </div>
+                <div class="flex justify-center mt-6">
+                    <button id="fullscreen-btn" class="bg-bloxor-primary hover:bg-bloxor-primary/90 text-white font-medium py-2 px-6 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                        <i class="fa fa-expand mr-2"></i>Fullscreen Mode
+                    </button>
+                </div>
+                <p class="mt-4 text-sm text-apple-gray italic text-center">For optimal performance, use Chrome or Safari with the latest updates</p>
+            </div>
+        </section>
+
+        <!-- 游戏特点 -->
+        <section id="features" class="mb-16">
+            <h2 class="text-3xl font-semibold mb-8 text-center text-apple-darkgray">Game Features</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-apple-white rounded-2xl shadow-md p-6 hover-scale card-shadow">
+                    <div class="w-14 h-14 bg-bloxor-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa fa-cubes text-2xl text-bloxor-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-medium mb-3 text-apple-darkgray">Strategic Puzzles</h3>
+                    <p class="text-apple-gray">Solve challenging puzzles by tilting the board and navigating your block to the target hole.</p>
+                </div>
+                
+                <div class="bg-apple-white rounded-2xl shadow-md p-6 hover-scale card-shadow">
+                    <div class="w-14 h-14 bg-bloxor-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa fa-th text-2xl text-bloxor-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-medium mb-3 text-apple-darkgray">120+ Levels</h3>
+                    <p class="text-apple-gray">Enjoy 120+ levels across 6 unique worlds with increasing difficulty and complexity.</p>
+                </div>
+                
+                <div class="bg-apple-white rounded-2xl shadow-md p-6 hover-scale card-shadow">
+                    <div class="w-14 h-14 bg-bloxor-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa fa-users text-2xl text-bloxor-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-medium mb-3 text-apple-darkgray">Global Leaderboards</h3>
+                    <p class="text-apple-gray">Compete with players worldwide to solve levels in the fewest moves and shortest time.</p>
+                </div>
+                
+                <div class="bg-apple-white rounded-2xl shadow-md p-6 hover-scale card-shadow">
+                    <div class="w-14 h-14 bg-bloxor-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa fa-mobile text-2xl text-bloxor-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-medium mb-3 text-apple-darkgray">Mobile Friendly</h3>
+                    <p class="text-apple-gray">Play seamlessly on any device with intuitive touch controls for mobile and tablet users.</p>
+                </div>
+                
+                <div class="bg-apple-white rounded-2xl shadow-md p-6 hover-scale card-shadow">
+                    <div class="w-14 h-14 bg-bloxor-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa fa-trophy text-2xl text-bloxor-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-medium mb-3 text-apple-darkgray">Achievements</h3>
+                    <p class="text-apple-gray">Earn achievements for completing levels under par, discovering secrets, and mastering challenges.</p>
+                </div>
+                
+                <div class="bg-apple-white rounded-2xl shadow-md p-6 hover-scale card-shadow">
+                    <div class="w-14 h-14 bg-bloxor-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa fa-refresh text-2xl text-bloxor-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-medium mb-3 text-apple-darkgray">Undo & Hints</h3>
+                    <p class="text-apple-gray">Use the undo feature or get hints if you get stuck on challenging puzzles.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 游戏说明与玩法 -->
+        <section id="how-to-play" class="mb-16 grid md:grid-cols-2 gap-8">
+            <div class="bg-apple-white rounded-2xl shadow-md p-6 md:p-8 hover-scale blox-shadow">
+                <h2 class="text-2xl font-semibold mb-4 text-bloxor-primary">Game Overview</h2>
+                <p class="mb-4">BLOXORZ is a classic block puzzle game where you navigate a 1x2 block through challenging levels by tilting the board in different directions. The goal is to get the block to fall into the square hole, which is exactly the size of the block when it stands on end.</p>
+                <p>Each level presents unique challenges and obstacles that require strategic thinking and precise movements to solve. With intuitive controls and beautiful visuals, BLOXORZ offers an engaging puzzle experience for players of all ages.</p>
+                
+                <div class="mt-6 pt-6 border-t border-gray-100">
+                    <h3 class="font-medium text-lg mb-2">Game Features:</h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>120+ challenging levels across 6 worlds</li>
+                        <li>Intuitive keyboard and touch controls</li>
+                        <li>Global leaderboards for competitive play</li>
+                        <li>Achievements and hidden secrets</li>
+                        <li>Undo moves and hint system</li>
+                        <li>Beautifully designed levels with smooth animations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-apple-white rounded-2xl shadow-md p-6 md:p-8 hover-scale blox-shadow">
+                <h2 class="text-2xl font-semibold mb-4 text-bloxor-primary">How to Play</h2>
+                <div class="space-y-6">
+                    <div class="p-4 bg-apple-lightgray rounded-lg">
+                        <h3 class="font-medium text-lg mb-3 flex items-center">
+                            <span class="w-8 h-8 bg-bloxor-primary text-white rounded-full flex items-center justify-center mr-2">1</span>
+                            Controls
+                        </h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="flex items-center">
+                                <span class="w-10 h-10 bg-bloxor-dark text-white rounded-md flex items-center justify-center font-bold mr-3">↑</span>
+                                <span>Tilt Up</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-10 h-10 bg-bloxor-dark text-white rounded-md flex items-center justify-center font-bold mr-3">↓</span>
+                                <span>Tilt Down</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-10 h-10 bg-bloxor-dark text-white rounded-md flex items-center justify-center font-bold mr-3">←</span>
+                                <span>Tilt Left</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-10 h-10 bg-bloxor-dark text-white rounded-md flex items-center justify-center font-bold mr-3">→</span>
+                                <span>Tilt Right</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-apple-lightgray rounded-lg">
+                        <h3 class="font-medium text-lg mb-3 flex items-center">
+                            <span class="w-8 h-8 bg-bloxor-primary text-white rounded-full flex items-center justify-center mr-2">2</span>
+                            Objective
+                        </h3>
+                        <p>Navigate the block to the square hole at the end of each level. The hole is exactly the size of the block when it stands on end. You can tilt the board in four directions to move the block. The block will roll in the direction you tilt. Plan your moves carefully to avoid falling off the edge of the board or hitting obstacles.</p>
+                    </div>
+                    
+                    <div class="p-4 bg-apple-lightgray rounded-lg">
+                        <h3 class="font-medium text-lg mb-3 flex items-center">
+                            <span class="w-8 h-8 bg-bloxor-primary text-white rounded-full flex items-center justify-center mr-2">3</span>
+                            Tips & Strategies
+                        </h3>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li>Plan your moves in advance - think about where the block will end up after each tilt</li>
+                            <li>Use the 'Undo' button if you make a mistake</li>
+                            <li>Collect all the stars to unlock bonus levels</li>
+                            <li>Try to complete levels in the fewest moves possible to earn a spot on the leaderboard</li>
+                            <li>Some levels have hidden switches that reveal secret paths</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 排行榜 -->
+        <section id="leaderboard" class="mb-16 bg-apple-white rounded-2xl shadow-md p-6 md:p-8 hover-scale blox-shadow">
+            <h2 class="text-3xl font-semibold mb-8 text-center text-apple-darkgray">Global Leaderboard</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-apple-lightgray">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-apple-gray uppercase tracking-wider">Rank</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-apple-gray uppercase tracking-wider">Player</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-apple-gray uppercase tracking-wider">Level</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-apple-gray uppercase tracking-wider">Moves</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-apple-gray uppercase tracking-wider">Time</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-apple-gray uppercase tracking-wider">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr class="hover:bg-apple-lightgray/50 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-apple-highlight/20 rounded-full flex items-center justify-center">
+                                        <span class="text-apple-highlight font-bold">1</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <img class="h-10 w-10 rounded-full" src="https://picsum.photos/200/200?random=1" alt="Player avatar">
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-apple-darkgray">BlockMaster</div>
+                                        <div class="text-xs text-apple-gray">World 6 - Level 10</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-darkgray">6-10</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-darkgray">24</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-darkgray">42s</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-gray">Today</td>
+                        </tr>
+                        <tr class="hover:bg-apple-lightgray/50 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-apple-highlight/10 rounded-full flex items-center justify-center">
+                                        <span class="text-apple-highlight/80 font-bold">2</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <img class="h-10 w-10 rounded-full" src="https://picsum.photos/200/200?random=2" alt="Player avatar">
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-apple-darkgray">PuzzlePro</div>
+                                        <div class="text-xs text-apple-gray">World 6 - Level 8</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-darkgray">6-8</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-darkgray">19</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-darkgray">37s</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-gray">1 hour ago</td>
+                        </tr>
+                        <tr class="hover:bg-apple-lightgray/50 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-apple-highlight/5 rounded-full flex items-center justify-center">
+                                        <span class="text-apple-highlight/60 font-bold">3</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <img class="h-10 w-10 rounded-full" src="https://picsum.photos/200/200?random=3" alt="Player avatar">
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-apple-darkgray">TiltMaster</div>
+                                        <div class="text-xs text-apple-gray">World 5 - Level 12</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-darkgray">5-12</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-darkgray">31</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-darkgray">58s</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-gray">2 hours ago</td>
+                        </tr>
+                        <tr class="hover:bg-apple-lightgray/50 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                                        <span class="text-apple-gray font-bold">4</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <img class="h-10 w-10 rounded-full" src="https://picsum.photos/200/200?random=4" alt="Player avatar">
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-apple-darkgray">BlockWhiz</div>
+                                        <div class="text-xs text-apple-gray">World 6 - Level 5</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-darkgray">6-5</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-darkgray">22</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-darkgray">45s</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-gray">Yesterday</td>
+                        </tr>
+                        <tr class="hover:bg-apple-lightgray/50 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                                        <span class="text-apple-gray font-bold">5</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <img class="h-10 w-10 rounded-full" src="https://picsum.photos/200/200?random=5" alt="Player avatar">
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-apple-darkgray">RollExpert</div>
+                                        <div class="text-xs text-apple-gray">World 5 - Level 9</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-darkgray">5-9</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-darkgray">28</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-darkgray">52s</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-apple-gray">2 days ago</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-6 text-center">
+                <button class="bg-bloxor-primary hover:bg-bloxor-primary/90 text-white font-medium py-2 px-6 rounded-full transition-all duration-300">
+                    View Complete Leaderboard
+                </button>
+            </div>
+        </section>
+
+        <!-- 最新更新 -->
+        <section id="updates" class="mb-16">
+            <h2 class="text-3xl font-semibold mb-8 text-center text-apple-darkgray">Latest Updates</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-apple-white rounded-2xl shadow-md overflow-hidden hover-scale">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://picsum.photos/800/400?random=10" alt="New Levels Release" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-apple-gray mb-3">
+                            <i class="fa fa-calendar-o mr-2"></i> June 20, 2025
+                        </div>
+                        <h3 class="text-xl font-medium mb-2 text-apple-darkgray">New Levels: World 7 - The Crystal Caves</h3>
+                        <p class="text-apple-gray mb-4">Explore 20 all-new levels in the Crystal Caves with challenging puzzles and stunning visuals.</p>
+                        <a href="#" class="text-bloxor-primary hover:text-bloxor-primary/80 font-medium inline-flex items-center">
+                            Read More <i class="fa fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-apple-white rounded-2xl shadow-md overflow-hidden hover-scale">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://picsum.photos/800/400?random=11" alt="Game Improvement" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-apple-gray mb-3">
+                            <i class="fa fa-calendar-o mr-2"></i> June 12, 2025
+                        </div>
+                        <h3 class="text-xl font-medium mb-2 text-apple-darkgray">Performance Enhancements</h3>
+                        <p class="text-apple-gray mb-4">Optimized game performance for smoother gameplay, especially on mobile devices and older computers.</p>
+                        <a href="#" class="text-bloxor-primary hover:text-bloxor-primary/80 font-medium inline-flex items-center">
+                            Read More <i class="fa fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-apple-white rounded-2xl shadow-md overflow-hidden hover-scale">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://picsum.photos/800/400?random=12" alt="New Feature" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-apple-gray mb-3">
+                            <i class="fa fa-calendar-o mr-2"></i> June 5, 2025
+                        </div>
+                        <h3 class="text-xl font-medium mb-2 text-apple-darkgray">Level Editor Coming Soon</h3>
+                        <p class="text-apple-gray mb-4">Create and share your own BLOXORZ levels with the upcoming level editor feature!</p>
+                        <a href="#" class="text-bloxor-primary hover:text-bloxor-primary/80 font-medium inline-flex items-center">
+                            Read More <i class="fa fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 号召性用语 -->
+        <section class="mb-16 bg-gradient-to-r from-bloxor-primary to-bloxor-dark rounded-2xl shadow-lg p-8 md:p-12 text-white">
+            <div class="text-center">
+                <h2 class="text-3xl md:text-4xl font-semibold mb-4">Ready to Challenge Your Mind?</h2>
+                <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">Play BLOXORZ now and test your puzzle-solving skills with hundreds of challenging levels.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#play" class="bg-white text-bloxor-primary hover:bg-opacity-90 font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                        Play Now
+                    </a>
+                    <a href="#" class="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-8 rounded-full transition-all duration-300">
+                        Share with Friends
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-apple-darkgray text-apple-lightgray py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-white">BLOXORZ</h3>
+                    <p class="mb-4">The ultimate HTML5 block puzzle game with stunning graphics and addictive gameplay.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-apple-lightgray hover:text-white transition-colors">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-apple-lightgray hover:text-white transition-colors">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-apple-lightgray hover:text-white transition-colors">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-apple-lightgray hover:text-white transition-colors">
+                            <i class="fa fa-discord"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-medium mb-4 text-white">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#play" class="hover:text-white transition-colors">Play Game</a></li>
+                        <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#how-to-play" class="hover:text-white transition-colors">How to Play</a></li>
+                        <li><a href="#leaderboard" class="hover:text-white transition-colors">Leaderboard</a></li>
+                        <li><a href="#updates" class="hover:text-white transition-colors">Updates</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-medium mb-4 text-white">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-medium mb-4 text-white">Newsletter</h4>
+                    <p class="mb-4">Subscribe to our newsletter for the latest updates and exclusive offers.</p>
+                    <form class="space-y-2">
+                        <div>
+                            <input type="email" placeholder="Your email address" class="w-full px-4 py-2 rounded-lg bg-apple-lightgray/10 border border-apple-lightgray/20 text-white focus:outline-none focus:ring-2 focus:ring-bloxor-primary">
+                        </div>
+                        <button type="submit" class="w-full bg-bloxor-primary hover:bg-bloxor-primary/90 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-apple-lightgray/10 text-center text-sm">
+                <p>&copy; 2025 BLOXORZ. All rights reserved.</p>
+                <p class="mt-1 text-xs"><a href="https://bloxorz.space" class="text-bloxor-primary hover:underline">https://bloxorz.space</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.add('py-2');
+                navbar.classList.remove('py-4');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.add('py-4');
+                navbar.classList.remove('py-2');
+            }
+        });
+
+        // 锚点链接平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 关闭移动端菜单（如果打开）
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        // 全屏按钮功能
+        document.getElementById('fullscreen-btn').addEventListener('click', function() {
+            const gameIframe = document.querySelector('.iframe-container iframe');
+            if (gameIframe.requestFullscreen) {
+                gameIframe.requestFullscreen();
+            } else if (gameIframe.webkitRequestFullscreen) {
+                gameIframe.webkitRequestFullscreen();
+            } else if (gameIframe.msRequestFullscreen) {
+                gameIframe.msRequestFullscreen();
+            }
+        });
+    </script>
+</body>
+</html>
 
